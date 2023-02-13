@@ -23,4 +23,8 @@ git pull
 git merge '<branch_name>'
 ```
 
+3. push
+```
+git push
+```
 
