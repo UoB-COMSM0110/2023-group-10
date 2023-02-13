@@ -7,8 +7,7 @@
 - Ya02111([@Ya02111](https://github.com/Ya02111))
 
 # Our Proposal
-
-
+- [Video](IMG_0487_compressed.mov)
 
 # Git Process
 1. Create branch and start develop.
