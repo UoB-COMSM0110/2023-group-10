@@ -6,9 +6,12 @@
 - Xufeng Yin([@07536220107](https://github.com/07536220107))
 - Ya02111([@Ya02111](https://github.com/Ya02111))
 
-# Our Proposal
+# Proposal
 - [Brick Dragon Video](/static/IMG_0487_compressed.mov)
 - [Tank Script Storyboard](/static/SpaceTanksPaperPrototype)
+
+# Project Plan
+- [Hackmd](https://hackmd.io/@836ko9MsR8aI9djOlrFkYg/HJP_qgZCj)
 
 # Git Process
 1. Create branch and start develop.
