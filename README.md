@@ -46,4 +46,8 @@ git pull
 git merge '<branch_name>'
 ```
 
+# Diagrams
+![class_diagram.png](static/class_diagram.png)
+![communication_diagram.jpg](static/communication_diagram.jpg)
+![sequence_diagram.png](static/sequence_diagram.png)
 
