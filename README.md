@@ -47,11 +47,10 @@ git merge '<branch_name>'
 ```
 
 # Diagrams
-1. Class diagram
+Class diagram / Communication diagram / Sequence diagram
 ![class_diagram.png](static/class_diagram.png)
  
 ![communication_diagram.jpg](static/communication_diagram.jpg)
-2. Communication diagram
-3. Sequence diagram
+
 ![sequence_diagram.png](static/sequence_diagram.png)
 
