@@ -2,7 +2,9 @@ class Planet{
   private float centreX;
   private float centreY;
   private float radius; 
-  
+  private int colourR;
+  private int colourG;
+  private int colourB;
   // Constructor for random planet when passed no variables -- TO DO: add checks for no overlap, if overlap found, redo random numbers
   public Planet(){
     //do{
@@ -16,7 +18,9 @@ class Planet{
       centreX = random(radius, width-radius);
       centreY = random(radius, height-radius);
     //} while(checkImpact(centreX, centreY, radius));
-    drawPlanet();
+    colourR = int(random(256));
+    colourG = int(random(256));
+    colourB = int(random(256));
   }
   
   // Constructor with exact centre coordinates and radius
@@ -24,13 +28,9 @@ class Planet{
     centreX = setX;
     centreY = setY;
     radius = setR;
-    drawPlanet();
-  }
-  
-  // draws a randomly coloured circle to show the planet
-  private void drawPlanet(){
-    fill(random(255), random(255), random(255));
-    ellipse(centreX, centreY, radius*2, radius*2);
+    colourR = int(random(256));
+    colourG = int(random(256));
+    colourB = int(random(256));
   }
   
   //private boolean checkOverlap(x, y, r){
@@ -45,5 +45,12 @@ class Planet{
   }
   public float getCentreY(){
     return centreY;
+  }
+  
+  // draws a randomly coloured circle to show the planet
+  private void displayPlanet(){
+    noStroke();
+    fill(colourR, colourG, colourB);
+    ellipse(centreX, centreY, radius*2, radius*2);
   }
 }
