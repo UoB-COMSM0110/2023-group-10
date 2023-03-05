@@ -1,14 +1,11 @@
 private ArrayList<Planet> planets;
 private ArrayList<Player> players;
 private int currPlayerNum;
-private Bomb b;
-private Tank testTank;
-private Barrel testBarrel;
+private Bomb theBomb;
 void setup(){
   frameRate(60);
   size(1000, 600);
   background(0);
-  testTank = new Tank(width/2, height/2);
   
   planets = new ArrayList<>();
   planets.add(new Planet(100, 300, 150));
@@ -31,21 +28,21 @@ void draw(){
   for(int i = 0; i<planets.size(); i++){
     planets.get(i).displayPlanet();
   }
-  if(b!=null){
-    b.stepBomb(planets);
-    b.displayBomb();  
-    if(b.getImpacted() == true){
+  if(theBomb!=null){
+    theBomb.stepBomb(planets);
+    theBomb.displayBomb();  
+    if(theBomb.getExploded() == true){
       println("Impact!");
-      b = null;
+      theBomb = null;
     }  
   }
 }
 
 public void keyPressed()
 {
-  if(b==null){
+  if(theBomb==null){
     if (key == ' '){
-      b = players.get(currPlayerNum).getTank().getBarrel().shoot();
+      theBomb = players.get(currPlayerNum).getTank().getBarrel().shoot();
       currPlayerNum++;
       currPlayerNum = currPlayerNum%players.size();
     }

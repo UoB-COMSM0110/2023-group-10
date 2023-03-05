@@ -6,8 +6,9 @@ class Bomb
   private float yPos;
   private float k = 5;
   private int bombRadius = 10;
+  private float fuse = 5*frameRate;
   private float explosionRadius = 10;
-  private boolean impacted = false;
+  private boolean exploded = false;
   
   // Bomb is created with velocity already at a specific x and y coordinate
   public Bomb(float initXVel, float initYVel, float x, float y)
@@ -50,13 +51,13 @@ class Bomb
     yVelocity += ySign*abs(yVelToPlanet);
   }
   
-  private void checkImpact(Planet p)
+  private void checkImpacted(Planet p)
   {
     float xDistance = p.getCentreX()-xPos;
     float yDistance = p.getCentreY()-yPos;
     float planetDistance = sqrt(sq(xDistance) + sq(yDistance));
     if(planetDistance < p.getRadius() + bombRadius){
-      impacted = true;
+      exploded = true;
     }
   }
   
@@ -64,9 +65,13 @@ class Bomb
   {
     for(int i = 0; i<ps.size(); i++){
       this.stepVelocity(ps.get(i));
-      this.checkImpact(ps.get(i));
+      this.checkImpacted(ps.get(i));
     }
     this.stepPosition();
+    fuse-=1;
+    if(fuse<=0){
+      exploded = true;
+    }
   }
   
   public void displayBomb(){
@@ -75,8 +80,12 @@ class Bomb
     ellipse(xPos, yPos, bombRadius, bombRadius);
   }
   
-  public boolean getImpacted()
+  public boolean getExploded()
   {
-    return impacted;  
+    return exploded;  
+  }
+  public float getExplosionRadius()
+  {
+    return explosionRadius;  
   }
 }
