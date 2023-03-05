@@ -7,13 +7,16 @@
 - Ya02111([@Ya02111](https://github.com/Ya02111))
 
 # Proposal
-- [Brick Dragon Video](/static/IMG_0487_compressed.mov)
-- [Tank Script Storyboard](/static/SpaceTanksPaperPrototype)
+- Plan1: ![Tank Script Storyboard](/static/PrototypeVideos/Tank.gif)
+- Plan2: ![Brick Dragon Video](/static/PrototypeVideos/DragonBubble.gif)
 
-# Project Plan
-- [Hackmd](https://hackmd.io/@836ko9MsR8aI9djOlrFkYg/HJP_qgZCj)
-# Bens prototype Plan
-- [Hackmd](https://hackmd.io/@TlCOUu7PQUOph9YfEY8ZcA/BJlT__00j)
+# Discussion Note
+- [2022/02/14](https://hackmd.io/@836ko9MsR8aI9djOlrFkYg/HJP_qgZCj)
+    - Class Layout
+    - Division of labor
+- [2022/03/03](https://hackmd.io/@TlCOUu7PQUOph9YfEY8ZcA/BJlT__00j)
+    - Detailed Story
+    - Class Design
 
 # Git Process
 1. Create branch and start develop.
