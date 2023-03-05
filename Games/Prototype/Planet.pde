@@ -1,10 +1,7 @@
 class Planet{
-  private float centreX;
-  private float centreY;
+  private Point position;
   private float radius; 
-  private int colourR;
-  private int colourG;
-  private int colourB;
+  private Color planet_color;
   // Constructor for random planet when passed no variables -- TO DO: add checks for no overlap, if overlap found, redo random numbers
   public Planet(){
     //do{
@@ -15,42 +12,37 @@ class Planet{
       else{
         radius = random(width/8);      
       }
-      centreX = random(radius, width-radius);
-      centreY = random(radius, height-radius);
+      position = new Point(random(radius, width-radius), random(radius, height-radius));
     //} while(checkImpact(centreX, centreY, radius));
-    colourR = int(random(256));
-    colourG = int(random(256));
-    colourB = int(random(256));
+    planet_color = new Color(int(random(256)), int(random(256)), int(random(256))); 
   }
   
   // Constructor with exact centre coordinates and radius
-  public Planet(float setX, float setY, float setR){
-    centreX = setX;
-    centreY = setY;
+  public Planet(Point initPosition, float setR){
+    position = initPosition;
     radius = setR;
-    colourR = int(random(256));
-    colourG = int(random(256));
-    colourB = int(random(256));
+    planet_color = new Color(int(random(256)), int(random(256)), int(random(256))); 
   }
   
   //private boolean checkOverlap(x, y, r){
     
   //  return false;
   //}
+  
   public float getRadius(){
     return radius;
   }
-  public float getCentreX(){
-    return centreX;
-  }
-  public float getCentreY(){
-    return centreY;
+  
+  public Point getPosition(){
+    return position;
   }
   
   // draws a randomly coloured circle to show the planet
   private void displayPlanet(){
+    beginShape();
     noStroke();
-    fill(colourR, colourG, colourB);
-    ellipse(centreX, centreY, radius*2, radius*2);
+    fill(planet_color.r, planet_color.g, planet_color.b);
+    ellipse(position.x, position.y, radius*2, radius*2);
+    endShape();
   }
 }
