@@ -8,9 +8,11 @@
 
 # Proposal
 - Plan1: 
+
     ![Tank Script Storyboard](/static/PrototypeVideos/Tank.gif)
 
 - Plan2: 
+
     ![Brick Dragon Video](/static/PrototypeVideos/DragonBubble.gif)
 
 # Discussion Note
