@@ -32,7 +32,7 @@ void draw(){
     theBomb.stepBomb(planets);
     theBomb.displayBomb();  
     if(theBomb.getExploded() == true){
-      println("Impact!");
+      println("Exploded!");
       theBomb = null;
     }  
   }
@@ -40,6 +40,7 @@ void draw(){
 
 public void keyPressed()
 {
+  // If statement stops inputs whilst a bomb is in play
   if(theBomb==null){
     if (key == ' '){
       theBomb = players.get(currPlayerNum).getTank().getBarrel().shoot();
