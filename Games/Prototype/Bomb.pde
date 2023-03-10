@@ -17,7 +17,7 @@ class Bomb
   
   private void stepPosition()
   {
-    this.position.add(this.velocity);
+    this.position = this.position.add(this.velocity);
   }
   
   private void stepVelocity(Planet p)
@@ -36,7 +36,7 @@ class Bomb
     int xSign = round(xDistance/abs(xDistance));
     int ySign = round(yDistance/abs(yDistance));
     
-    this.velocity.add(new Velocity(xSign*abs(xVelToPlanet), ySign*abs(yVelToPlanet)));
+    this.velocity = this.velocity.add(new Velocity(xSign*abs(xVelToPlanet), ySign*abs(yVelToPlanet)));
   }
   
   private void checkImpacted(Planet p)

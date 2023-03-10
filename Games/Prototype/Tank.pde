@@ -1,40 +1,51 @@
-import java.util.List;
-import java.util.Collections;
-
 class Tank
 {
   private float tankWidth, tankHeight; 
-  private Point position; // TODO: angle
+  private Point position;
+  private float angle;
+  private DIRECTION direction; 
+  private Planet planet;
   private boolean exploded;
   private Barrel tankBarrel;
-  
-  //public Tank(Point intiPosition, List<Planet> planets){
-  //  //planets.sort((p1, p2) -> Utils.getDistance(p1, intiPosition) > Utils.getDistance(p2, intiPosition));
-  //  //for (Planet planet: planets){
-      
-  //  //}
-  //}
 
-  public Tank(float initWidth, float initHeight, Point intiPosition, Planet initPlanet){
-    //this.position = intiPosition;
+  public Tank(float initWidth, float initHeight, Point intiPosition, DIRECTION direction, ArrayList<Planet> planets){
+    //this(initWidth, initHeight, intiPosition, this.getNearestPlanet(planets, intiPosition))
+    this.planet = this.getNearestPlanet(planets, intiPosition);
     this.tankWidth = initWidth;
     this.tankHeight = initHeight;
-    Point planetPosition = initPlanet.getPosition();
-    this.position = planetPosition.interpolate(intiPosition, initPlanet.getRadius()); 
+    Point planetPosition = this.planet.getPosition();
+    this.position = planetPosition.interpolate(intiPosition, this.planet.getRadius()); 
+    this.direction = direction;
+    this.angle = planetPosition.getPerpendicularAngle(this.position);
+    tankBarrel = new Barrel(this);
+  }
+  
+  public Tank(float initWidth, float initHeight, Point intiPosition, DIRECTION direction, Planet initPlanet){
+    this.planet = initPlanet;
+    this.tankWidth = initWidth;
+    this.tankHeight = initHeight;
+    Point planetPosition = this.planet.getPosition();
+    this.position = planetPosition.interpolate(intiPosition, initPlanet.getRadius());
+    this.direction = direction;
+    this.angle = planetPosition.getPerpendicularAngle(this.position);
     tankBarrel = new Barrel(this);
   }
 
-  //public Tank(Point intiPosition){
-  //  this.position = intiPosition; 
-  //  tankBarrel = new Barrel(this);
-  //}
+  public Planet getNearestPlanet(ArrayList<Planet> planets, Point position){
+    planets.sort((p1, p2) -> (int) (p1.getPosition().getDistance(position) - p2.getPosition().getDistance(position)));
+    return planets.get(0);
+  }
   
   public void moveLeft(){
-    
+    // TODO: using Point.getPerpendicularAngle to implemen this
+    // TODO: use `this.angle = planetPosition.getPerpendicularAngle(this.position);` to update position
+    // TODO: use `this.angle = planetPosition.getPerpendicularAngle(this.position);` to update angle
   }
   
   public void moveRight(){
-    
+    // TODO: using Point.getPerpendicularAngle to implemen this
+    // TODO: use `this.angle = planetPosition.getPerpendicularAngle(this.position);` to update position
+    // TODO: use `this.angle = planetPosition.getPerpendicularAngle(this.position);` to update angle
   }
   
   // returns true if it has exploded
@@ -65,24 +76,16 @@ class Tank
   // displays tank onto the screen
   public void displayTank(){
     if (!this.exploded){
+      // TODO: The direction of the tank should be considered.
       beginShape();
-      //translate(this.position.x, this.position.y);
-      //rotate(30);
+      pushMatrix();
+      translate(this.getPosition().x, this.getPosition().y);
+      rotate(this.angle);
       noStroke();  
       fill(255, 0, 0);
-      //rect(-this.tankWidth/2, -this.tankHeight, this.tankWidth, this.tankHeight);
-      rect(this.position.x-this.tankWidth/2, this.position.y-this.tankHeight, this.tankWidth, this.tankHeight);
+      rect(-this.tankWidth/2, -this.tankHeight, this.tankWidth, this.tankHeight);
+      popMatrix();
       endShape();
-      
-    //  Line l = t.getBarrelLine();
-    //  line(l.x1, l.y1, l.x2, l.y2);
-      
-    //  if (t.showBarrelTrajactory){
-    //    for (Point pt: t.getBarreltrajectory()){
-    //      circle(pt.x, pt.y, 1); 
-    //    }
-    //  }
     }
-
   }
 }
