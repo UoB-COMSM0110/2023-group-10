@@ -8,25 +8,51 @@ void setup(){
   background(0);
   
   planets = new ArrayList<>();
-  planets.add(new Planet(100, 300, 150));
-  planets.add(new Planet(900, 300, 150));
+  planets.add(new Planet(new Point(100.0, 300.0), 100.0));
+  planets.add(new Planet(new Point(900.0, 300.0), 100.0));
   
   players = new ArrayList<>();
   players.add(new Player("One"));
   players.add(new Player("Two"));
-  players.get(0).setTank(new Tank(100, 150));
-  players.get(1).setTank(new Tank(900, 150));
+  
+  //define the planet for specific Tank
+  players.get(0).setTank(new Tank(20, 8, new Point(200.0, 150.0), DIRECTION.CLOCKWISE, planets.get(0)));
+  players.get(1).setTank(new Tank(20, 8, new Point(900.0, 150.0), DIRECTION.COUNTERCLOCKWISE, planets.get(1)));
+  
+  //// find the nearest planet for each Tank
+  //players.get(0).setTank(new Tank(20, 8, new Point(200.0, 150.0), DIRECTION.CLOCKWISE, planets));
+  //players.get(1).setTank(new Tank(20, 8, new Point(900.0, 150.0), DIRECTION.COUNTERCLOCKWISE, planets));
   currPlayerNum = 0;
 }
 
 void draw(){
   background(0);
+  
+  //beginShape();
+  ////translate(50, 50);
+  ////rotate(30);
+  //noStroke();  
+  //fill(255, 0, 0);
+  //rect(50-25, 50-15, 50, 30);
+  //endShape();
+  
+  //beginShape();
+  //pushMatrix();
+  //translate(50, 50);
+  //rotate(10 * PI/180);
+  //noStroke();  
+  //fill(0, 0, 255);
+  //rect(-25, -15, 50, 30);
+  //popMatrix();
+  //endShape();
+
+  
+  for(int i = 0; i<planets.size(); i++){
+    planets.get(i).displayPlanet();
+  }
   for(int i = 0; i<players.size(); i++){
     players.get(i).getTank().displayTank();
     players.get(i).getTank().getBarrel().displayBarrel();
-  }
-  for(int i = 0; i<planets.size(); i++){
-    planets.get(i).displayPlanet();
   }
   if(theBomb!=null){
     theBomb.stepBomb(planets);

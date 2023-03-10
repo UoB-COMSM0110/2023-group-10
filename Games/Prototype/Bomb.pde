@@ -1,9 +1,7 @@
 class Bomb
 {
-  private float xVelocity;
-  private float yVelocity;
-  private float xPos;
-  private float yPos;
+  private Velocity velocity;
+  private Point position;
   private float k = 5;
   private int bombRadius = 10;
   private float fuse = 5*frameRate;
@@ -11,32 +9,21 @@ class Bomb
   private boolean exploded = false;
   
   // Bomb is created with velocity already at a specific x and y coordinate
-  public Bomb(float initXVel, float initYVel, float x, float y)
+  public Bomb(Velocity initVelocity, Point initPosition)
   {
-    xVelocity = initXVel;
-    yVelocity = initYVel;
-    xPos = x;
-    yPos = y;
+    this.velocity = initVelocity;
+    this.position = initPosition;
   }
   
   private void stepPosition()
   {
-    xPos+=xVelocity;
-    yPos+=yVelocity;
+    this.position = this.position.add(this.velocity);
   }
+  
   private void stepVelocity(Planet p)
   {
-    // change velocity for gravity pull from a planet
-    float xDistance = p.getCentreX()-xPos;
-    float yDistance = p.getCentreY()-yPos;
-    float planetDistance = sqrt(sq(xDistance) + sq(yDistance));
-    float planetAngle;
-    if(xDistance == 0){
-      planetAngle=0;
-    }
-    else{
-      planetAngle = tan(yDistance/xDistance);
-    }
+    float planetDistance = p.position.getDistance(this.position);
+    float planetAngle = p.position.getAngle(this.position);
     
     float velocityToPlanet = k*p.getRadius()/sq(planetDistance);
     
@@ -44,18 +31,17 @@ class Bomb
     float yVelToPlanet = sin(planetAngle)*velocityToPlanet;
           
     // work out the sign (+1 or -1) seperately to reduce confusion
+    float xDistance =  p.position.x - this.position.x;
+    float yDistance =  p.position.y - this.position.y;
     int xSign = round(xDistance/abs(xDistance));
     int ySign = round(yDistance/abs(yDistance));
     
-    xVelocity += xSign*abs(xVelToPlanet);
-    yVelocity += ySign*abs(yVelToPlanet);
+    this.velocity = this.velocity.add(new Velocity(xSign*abs(xVelToPlanet), ySign*abs(yVelToPlanet)));
   }
   
   private void checkImpacted(Planet p)
   {
-    float xDistance = p.getCentreX()-xPos;
-    float yDistance = p.getCentreY()-yPos;
-    float planetDistance = sqrt(sq(xDistance) + sq(yDistance));
+    float planetDistance = p.position.getDistance(this.position);
     if(planetDistance < p.getRadius() + bombRadius){
       exploded = true;
     }
@@ -77,7 +63,7 @@ class Bomb
   public void displayBomb(){
     noStroke();
     fill(255, 255, 255);
-    ellipse(xPos, yPos, bombRadius, bombRadius);
+    ellipse(this.position.x, this.position.y, bombRadius, bombRadius);
   }
   
   public boolean getExploded()
