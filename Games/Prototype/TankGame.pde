@@ -8,8 +8,18 @@ void setup(){
   background(0);
   
   planets = new ArrayList<>();
-  planets.add(new Planet(new Point(100.0, 300.0), 100.0));
-  planets.add(new Planet(new Point(900.0, 300.0), 100.0));
+  for (int i=0; i<2; i++){
+    // The newPlanet position margin is 50, means at least 50 far from screen edge
+    Planet newPlanet = new Planet(new Point(random(50.0, 900.0), random(50.0, 500.0)), random(50.0, 200.0)); //<>//
+    if (!newPlanet.checkPlanetOverlap(planets,newPlanet)){ //<>//
+      planets.add(newPlanet); //<>//
+    }
+    else{
+      i--;
+    }
+  }
+  //planets.add(new Planet(new Point(100.0, 300.0), 100.0));
+  //planets.add(new Planet(new Point(900.0, 300.0), 100.0));
   
   players = new ArrayList<>();
   players.add(new Player("One"));
