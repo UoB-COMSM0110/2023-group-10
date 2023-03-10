@@ -1,8 +1,7 @@
 class Planet{
-  private float centreX;
-  private float centreY;
+  private Point position;
   private float radius; 
-  
+  private Color planet_color;
   // Constructor for random planet when passed no variables -- TO DO: add checks for no overlap, if overlap found, redo random numbers
   public Planet(){
     //do{
@@ -13,37 +12,37 @@ class Planet{
       else{
         radius = random(width/8);      
       }
-      centreX = random(radius, width-radius);
-      centreY = random(radius, height-radius);
+      position = new Point(random(radius, width-radius), random(radius, height-radius));
     //} while(checkImpact(centreX, centreY, radius));
-    drawPlanet();
+    planet_color = new Color(int(random(256)), int(random(256)), int(random(256))); 
   }
   
   // Constructor with exact centre coordinates and radius
-  public Planet(float setX, float setY, float setR){
-    centreX = setX;
-    centreY = setY;
+  public Planet(Point initPosition, float setR){
+    position = initPosition;
     radius = setR;
-    drawPlanet();
-  }
-  
-  // draws a randomly coloured circle to show the planet
-  private void drawPlanet(){
-    fill(random(255), random(255), random(255));
-    ellipse(centreX, centreY, radius*2, radius*2);
+    planet_color = new Color(int(random(256)), int(random(256)), int(random(256))); 
   }
   
   //private boolean checkOverlap(x, y, r){
     
   //  return false;
   //}
+  
   public float getRadius(){
     return radius;
   }
-  public float getCentreX(){
-    return centreX;
+  
+  public Point getPosition(){
+    return position;
   }
-  public float getCentreY(){
-    return centreY;
+  
+  // draws a randomly coloured circle to show the planet
+  private void displayPlanet(){
+    beginShape();
+    noStroke();
+    fill(planet_color.r, planet_color.g, planet_color.b);
+    ellipse(position.x, position.y, radius*2, radius*2);
+    endShape();
   }
 }
