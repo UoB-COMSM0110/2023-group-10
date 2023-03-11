@@ -6,6 +6,9 @@
 - Xufeng Yin([@07536220107](https://github.com/07536220107))
 - Ya02111([@Ya02111](https://github.com/Ya02111))
 
+# TODO List (Trello)
+- [link](https://trello.com/invite/b/mycU1ijf/ATTI8b7499ee27ee1b75d62ecf08cd872c7155608F6F/introswe2023-group-10)
+
 # Proposal
 - Plan1: 
 
