@@ -23,9 +23,21 @@ class Vector
   public Vector minus(Vector v){
       return new Vector(this.x - v.x, this.y - v.y);
   }
+
+  public Vector devide(float d){
+      return new Vector(this.x / d, this.y / d);
+  }
   
+  public Vector multiply(float m){
+      return new Vector(this.x * m, this.y * m);
+  }
+
   public Vector rot90Clockwise(){ 
     return new Vector(-this.y, this.x);    
+  }
+  
+  public Vector rot90CounterClockwise(){ 
+    return new Vector(this.y, -this.x);    
   }
   
   public float dot(Vector v){
@@ -41,7 +53,11 @@ class Vector
   }
   
   public float getIncludedAngle(Vector v2){
-    return acos(this.dot(v2) / (this.getAbsolute() * v2.getAbsolute()));
+    float includedAngle = acos(this.dot(v2) / (this.getAbsolute() * v2.getAbsolute()));
+    if (this.x * v2.y - this.y * v2.x > 0){ // CLOCKWISLY more than 180 degree
+      includedAngle *= -1;
+    }
+    return includedAngle;
   }
   
   public String toString(){
@@ -88,7 +104,7 @@ class Point extends Vector
   //  return (float)Math.sqrt((sq(this.x - p2.x) + sq(this.y - p2.y)));
   //}
 
-  public Point add(Velocity v){
+  public Point add(Vector v){
     return new Point(this.x + v.x, this.y + v.y); 
   }
 
@@ -116,12 +132,17 @@ class Point extends Vector
       return angle;
   }
   
-  public float getPerpendicularAngle(Point p2){
+  public Vector getPerpendicularVector(Point p2, DIRECTION direction){
+    Vector v = new Vector(p2.minus(this));
+    Vector vPerpendicular = (direction == DIRECTION.CLOCKWISE)? v.rot90Clockwise(): v.rot90CounterClockwise();
+    return vPerpendicular;
+  }
+  
+  public float getPerpendicularAngle(Point p2, DIRECTION direction){
     // This function returns the Radian not degree
     // It is also valid to get the angle by this, but it may be difficult to debug
     // return atan((p2.y - this.y) / (p2.x - this.x));
-    Vector v = new Vector(p2.minus(this));
-    Vector vPerpendicular = v.rot90Clockwise();
+    Vector vPerpendicular = this.getPerpendicularVector(p2, direction);
     float angle = vPerpendicular.getIncludedAngle(new Vector(1.0, 0.0));
     return angle;
   }
