@@ -52,10 +52,18 @@ class Barrel
     return angle;
   }
   
-  private Point getLineEnd(){
-    Point lineStart = new Point(this.tank.getPosition());
-    lineStart.y -= this.tank.tankHeight;
-    Point lineEnd = new Point(lineStart.x+lineLen*cos(angle), lineStart.y+lineLen*sin(-angle));
+  private Point getLineStart(boolean tankCentered){ //tankCentered bool: decide the start coordinate (0, 0) or this.tank.getPosition().
+    Point lineStart = new Point(0, -this.tank.tankHeight);  
+    if (!tankCentered){
+      lineStart = lineStart.add(this.tank.getPosition());  
+    }
+    return lineStart; 
+  }
+  
+  private Point getLineEnd(boolean tankCentered){ //tankCentered bool: decide the start coordinate (0, 0) or this.tank.getPosition(). 
+    Point lineStart = getLineStart(tankCentered);
+    float lineEndX = (this.tank.direction == DIRECTION.CLOCKWISE)? lineLen*cos(angle): -lineLen*cos(angle);
+    Point lineEnd = lineStart.add(new Point(lineEndX, lineLen*sin(-angle)));
     return lineEnd;
   }
   
@@ -64,7 +72,7 @@ class Barrel
     float bombVel = k * power;
     float bombXVel = cos(angle)*bombVel;
     float bombYVel = sin(-angle)*bombVel;
-    return new Bomb(new Velocity(bombXVel, bombYVel), getLineEnd()); // TODO apply transform matrix
+    return new Bomb(new Velocity(bombXVel, bombYVel), getLineEnd(false)); // TODO apply transform matrix
   }
   
   // displays barrel onto the screen
@@ -75,7 +83,9 @@ class Barrel
     rotate(this.tank.angle);
     stroke(100, 100, 100);
     strokeWeight(lineThickness);
-    line(0, -this.tank.tankHeight, lineLen*cos(angle), -this.tank.tankHeight+lineLen*sin(-angle));
+    Point lineStart = getLineStart(true);
+    Point lineEnd = getLineEnd(true);
+    line(lineStart.x, lineStart.y, lineEnd.x, lineEnd.y);
     popMatrix();
     endShape();
   }

@@ -1,5 +1,6 @@
 class Tank
 {
+  private float stepSize = 5;
   private float tankWidth, tankHeight; 
   private Point position;
   private float angle;
@@ -16,7 +17,7 @@ class Tank
     Point planetPosition = this.planet.getPosition();
     this.position = planetPosition.interpolate(intiPosition, this.planet.getRadius()); 
     this.direction = direction;
-    this.angle = planetPosition.getPerpendicularAngle(this.position);
+    this.angle = planetPosition.getPerpendicularAngle(this.position, this.direction);
     tankBarrel = new Barrel(this);
   }
   
@@ -27,7 +28,7 @@ class Tank
     Point planetPosition = this.planet.getPosition();
     this.position = planetPosition.interpolate(intiPosition, initPlanet.getRadius());
     this.direction = direction;
-    this.angle = planetPosition.getPerpendicularAngle(this.position);
+    this.angle = planetPosition.getPerpendicularAngle(this.position, DIRECTION.CLOCKWISE);
     tankBarrel = new Barrel(this);
   }
 
@@ -37,15 +38,23 @@ class Tank
   }
   
   public void moveLeft(){
-    // TODO: using Point.getPerpendicularAngle to implemen this
-    // TODO: use `this.angle = planetPosition.getPerpendicularAngle(this.position);` to update position
-    // TODO: use `this.angle = planetPosition.getPerpendicularAngle(this.position);` to update angle
+    this.direction = DIRECTION.COUNTERCLOCKWISE;
+    Point planetPosition = this.planet.getPosition();
+    Vector vPerpendicular = planetPosition.getPerpendicularVector(this.position, this.direction);
+    Vector vPerpendicularUnit = vPerpendicular.devide(vPerpendicular.getAbsolute()).multiply(stepSize);
+    Point positionNew = this.position.add(vPerpendicularUnit); 
+    this.position = planetPosition.interpolate(positionNew, this.planet.getRadius());
+    this.angle = planetPosition.getPerpendicularAngle(this.position, DIRECTION.CLOCKWISE);
   }
   
   public void moveRight(){
-    // TODO: using Point.getPerpendicularAngle to implemen this
-    // TODO: use `this.angle = planetPosition.getPerpendicularAngle(this.position);` to update position
-    // TODO: use `this.angle = planetPosition.getPerpendicularAngle(this.position);` to update angle
+    this.direction = DIRECTION.CLOCKWISE;
+    Point planetPosition = this.planet.getPosition();
+    Vector vPerpendicular = planetPosition.getPerpendicularVector(this.position, this.direction);
+    Vector vPerpendicularUnit = vPerpendicular.devide(vPerpendicular.getAbsolute()).multiply(stepSize);
+    Point positionNew = this.position.add(vPerpendicularUnit); 
+    this.position = planetPosition.interpolate(positionNew, this.planet.getRadius());
+    this.angle = planetPosition.getPerpendicularAngle(this.position, DIRECTION.CLOCKWISE);
   }
   
   // returns true if it has exploded
