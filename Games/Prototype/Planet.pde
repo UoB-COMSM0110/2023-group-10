@@ -24,10 +24,28 @@ class Planet{
     planet_color = new Color(int(random(256)), int(random(256)), int(random(256))); 
   }
   
-  //private boolean checkOverlap(x, y, r){
-    
-  //  return false;
-  //}
+  // Check if newPlanet's position and size is valid
+  public boolean checkPlanetOverlap(ArrayList<Planet> planets, Planet newPlanet){
+    Point newPos = newPlanet.getPosition();
+    Float newR = newPlanet.getRadius();
+    // Check newPlanet is in the screen
+    if (newPos.x - newR < 0 || newPos.x + newR > 1000 || newPos.y - newR < 0 || newPos.y + newR > 600){
+      return true;
+    }
+    if (planets == null){
+      return false;
+    }
+    // Check if newPlanet is overlap
+    for(Planet x : planets){
+      Point xPos = x.getPosition();
+      Float xR = x.getRadius();
+      Double distance = Math.sqrt(Math.pow((xPos.x - newPos.x), 2) + Math.pow((xPos.y - newPos.y), 2));
+      if (distance < (newR + xR)){
+        return true;
+      }
+    }
+    return false;
+  }
   
   public float getRadius(){
     return radius;
