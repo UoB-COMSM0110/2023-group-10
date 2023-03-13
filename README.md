@@ -60,10 +60,14 @@ git merge '<branch_name>'
 ```
 
 # Diagrams
-Class diagram / Communication diagram / Sequence diagram
+Class diagram / Use case diagram / Sequence diagrams
 ![class_diagram.png](static/class_diagram.png)
  
-![communication_diagram.jpg](static/communication_diagram.jpg)
+![use_case_diagram.png](static/use_case_diagram.png)
 
-![sequence_diagram.png](static/sequence_diagram.png)
+![sequence_diagram1.png](static/sequence_diagram1.png)
+
+![sequence_diagram2.png](static/sequence_diagram2.png)
+
+![sequence_diagram3.png](static/sequence_diagram3.png)
 
